@@ -1,11 +1,10 @@
-package com.oleksandr.remitly.swiftapi.entity;
+package com.oleksandr.remitly.swiftapi.Model.Entity;
 
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "bank_names")
-public class BankName {
-
+@Table(name = "cities")
+public class City {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -13,15 +12,14 @@ public class BankName {
     @Column(name = "name", nullable = false)
     private String name;
 
-
     @ManyToOne
     @JoinColumn(name = "country_id", nullable = false)
     private Country country;
 
-    public BankName() {
+    public City() {
     }
 
-    public BankName(String name, Country country) {
+    public City(String name, Country country) {
         this.name = name;
         this.country = country;
     }

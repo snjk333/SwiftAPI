@@ -1,4 +1,4 @@
-package com.oleksandr.remitly.swiftapi.entity;
+package com.oleksandr.remitly.swiftapi.Model.Entity;
 
 import jakarta.persistence.*;
 
