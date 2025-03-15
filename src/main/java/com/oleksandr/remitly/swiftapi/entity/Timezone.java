@@ -14,6 +14,10 @@ public class Timezone {
     public Timezone() {
     }
 
+    public Timezone(int id) {
+        this.id = id;
+    }
+
     public int getId() {
         return id;
     }
