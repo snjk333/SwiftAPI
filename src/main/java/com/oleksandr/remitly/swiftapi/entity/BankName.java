@@ -18,6 +18,14 @@ public class BankName {
     @JoinColumn(name = "country_id", nullable = false)
     private Country country;
 
+    public BankName() {
+    }
+
+    public BankName(String name, Country country) {
+        this.name = name;
+        this.country = country;
+    }
+
     public int getId() {
         return id;
     }
