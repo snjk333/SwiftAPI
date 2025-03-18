@@ -1,50 +1,33 @@
 package com.oleksandr.remitly.swiftapi.Model.Entity;
 
 import jakarta.persistence.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Entity
 @Table(name = "cities")
+@Data
+@NoArgsConstructor
 public class City {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
-    @Column(name = "name", nullable = false)
+    @Column(name = "name", nullable = false, length = 100)
     private String name;
 
     @ManyToOne
     @JoinColumn(name = "country_id", nullable = false)
     private Country country;
 
-    public City() {
-    }
+    @OneToMany(mappedBy = "city", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<SwiftCode> swiftCodes;
 
     public City(String name, Country country) {
         this.name = name;
         this.country = country;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Country getCountry() {
-        return country;
-    }
-
-    public void setCountry(Country country) {
-        this.country = country;
-    }
 }

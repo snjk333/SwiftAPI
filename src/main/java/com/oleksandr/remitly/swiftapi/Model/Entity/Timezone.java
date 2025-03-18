@@ -1,36 +1,27 @@
 package com.oleksandr.remitly.swiftapi.Model.Entity;
 import jakarta.persistence.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Entity
 @Table(name = "timezones")
+@NoArgsConstructor
+@Data
 public class Timezone {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
-    @Column(name = "timezone_name", nullable = false)
+    @Column(name = "timezone_name", nullable = false, length = 50)
     private String timezoneName;
 
-    public Timezone() {
-    }
+    @OneToMany(mappedBy = "timezone", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Country> countries;
 
-    public Timezone(int id) {
-        this.id = id;
-    }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getTimezoneName() {
-        return timezoneName;
-    }
-
-    public void setTimezoneName(String timezoneName) {
+    public Timezone(String timezoneName) {
         this.timezoneName = timezoneName;
     }
 }

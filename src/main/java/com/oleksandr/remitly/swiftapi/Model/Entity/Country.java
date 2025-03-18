@@ -1,62 +1,37 @@
 package com.oleksandr.remitly.swiftapi.Model.Entity;
 
 import jakarta.persistence.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Entity
+@Data
+@NoArgsConstructor
 @Table(name = "countries")
 public class Country {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
-    @Column(name = "iso_code", nullable = false, unique = true)
+    @Column(name = "iso_code", nullable = false, unique = true, length = 2)
     private String isoCode;
 
-    @Column(name = "name", nullable = false)
+    @Column(name = "name", nullable = false, length = 100)
     private String name;
 
     @ManyToOne
     @JoinColumn(name = "timezone_id", nullable = false)
     private Timezone timezone;
 
-    public Country() {
-    }
+    @OneToMany(mappedBy = "country", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<City> cities;
+
 
     public Country(String isoCode, String name, Timezone timezone) {
         this.isoCode = isoCode;
         this.name = name;
-        this.timezone = timezone;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getIsoCode() {
-        return isoCode;
-    }
-
-    public void setIsoCode(String isoCode) {
-        this.isoCode = isoCode;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Timezone getTimezone() {
-        return timezone;
-    }
-
-    public void setTimezone(Timezone timezone) {
         this.timezone = timezone;
     }
 }
