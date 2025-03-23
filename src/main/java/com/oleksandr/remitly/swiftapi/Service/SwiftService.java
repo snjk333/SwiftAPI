@@ -1,5 +1,6 @@
 package com.oleksandr.remitly.swiftapi.Service;
 
+import com.oleksandr.remitly.swiftapi.Model.DTO.SwiftCodeRequestDTO;
 import com.oleksandr.remitly.swiftapi.Model.Entity.SwiftCode;
 
 import java.util.List;
@@ -9,7 +10,7 @@ public interface SwiftService {
 
     List<SwiftCode> getSwiftCodesByISO(String swiftCode); //endpoint 2
 
-    void addSwiftCode(SwiftCode swiftCode); //endpoint 3
+    void addSwiftCode(SwiftCodeRequestDTO swiftCode); //endpoint 3
 
     void deleteSwiftCode(String swiftCode); //endpoint 4
 
