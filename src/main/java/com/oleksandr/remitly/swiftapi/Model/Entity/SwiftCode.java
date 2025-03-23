@@ -4,11 +4,13 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 @Entity
 @Table(name = "swift_codes")
 @Data
 @NoArgsConstructor
-public class SwiftCode {
+public class SwiftCode implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -3,13 +3,14 @@ package com.oleksandr.remitly.swiftapi.Model.Entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.io.Serializable;
 import java.util.List;
 
 @Entity
 @Table(name = "cities")
 @Data
 @NoArgsConstructor
-public class City {
+public class City implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

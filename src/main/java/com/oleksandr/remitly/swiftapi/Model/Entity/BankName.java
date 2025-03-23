@@ -4,13 +4,14 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.util.List;
 
 @Entity
 @Table(name = "bank_names")
 @Data
 @NoArgsConstructor
-public class BankName {
+public class BankName implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
