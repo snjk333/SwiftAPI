@@ -1,10 +1,8 @@
 package com.oleksandr.remitly.swiftapi.Service;
 
 import com.oleksandr.remitly.swiftapi.Mapper.SwiftCodeMapper;
-import com.oleksandr.remitly.swiftapi.Model.DTO.BankResponseDTO;
-import com.oleksandr.remitly.swiftapi.Model.DTO.CountrySwiftCodesResponseDTO;
-import com.oleksandr.remitly.swiftapi.Model.DTO.SwiftCodeDetailsDTO;
-import com.oleksandr.remitly.swiftapi.Model.DTO.SwiftCodeRequestDTO;
+import com.oleksandr.remitly.swiftapi.Model.DTO.*;
+import com.oleksandr.remitly.swiftapi.Model.Entity.BankName;
 import com.oleksandr.remitly.swiftapi.Model.Entity.Country;
 import com.oleksandr.remitly.swiftapi.Model.Entity.SwiftCode;
 import com.oleksandr.remitly.swiftapi.Repository.SwiftCodeRepository;
@@ -13,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -29,7 +28,38 @@ public class SwiftServiceImpl implements SwiftService{
 
     @Override
     public BankResponseDTO getSwiftCodeDetails(String swiftCode) {
-        return null;
+        Optional<SwiftCode> swiftCodeOptional = swiftCodeRepository.findBySwiftCode(swiftCode);
+        if(swiftCodeOptional.isEmpty()) {
+                return new
+                        BankResponseDTO("empty",
+                        "empty",
+                        "empty",
+                        "empty",
+                        false,
+                        swiftCode,
+                        Collections.emptyList());
+        }
+        SwiftCode swiftCodeObject = swiftCodeOptional.get();
+
+        String address = swiftCodeObject.getAddress();
+        String bankName = swiftCodeObject.getBank().getName();
+        Country country = swiftCodeObject.getCity().getCountry();
+        String countryISOCode = country.getIsoCode();
+        String countryName = country.getName();
+        boolean isHeadquarter = swiftCodeObject.isHeadquarter();
+
+        BankName bank = swiftCodeObject.getBank();
+
+        List<SwiftCode> listOfSwiftCodes = swiftCodeRepository.findByBank(bank);
+
+        List<BranchDTO> branchDTOS = listOfSwiftCodes.stream()
+                .map(br -> new BranchDTO(br.getAddress(),
+                        br.getBank().getName(),
+                        br.getCity().getCountry().getIsoCode(),
+                        br.isHeadquarter(),
+                        br.getSwiftCode())).filter(sc -> !sc.getSwiftCode().equals(swiftCode))
+                .toList();
+        return new BankResponseDTO(address, bankName, countryISOCode, countryName, isHeadquarter,swiftCode ,branchDTOS);
     }
 
     @Override
@@ -68,7 +98,7 @@ public class SwiftServiceImpl implements SwiftService{
 
     @Override
     public void addSwiftCode(SwiftCodeRequestDTO swiftCode) {
-        SwiftCode swiftObject = swiftCodeMapper.toEntity(swiftCode);
+        SwiftCode swiftObject = swiftCodeMapper.toEntity(swiftCode); //map DTO to entity
         swiftCodeRepository.save(swiftObject);
     }
 
