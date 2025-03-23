@@ -1,14 +1,14 @@
 package com.oleksandr.remitly.swiftapi.Model.DTO;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
 @Data
 @NoArgsConstructor
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class BankResponseDTO {
     private String address;
     private String bankName;
