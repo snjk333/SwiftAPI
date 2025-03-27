@@ -6,7 +6,7 @@ import  com.oleksandr.remitly.swiftapi.Model.Entity.BankName;
 import java.util.List;
 import java.util.Optional;
 
-public interface SwiftCodeRepository extends JpaRepository<SwiftCode, Integer>{
+public interface SwiftCodeRepository extends JpaRepository<SwiftCode, Long>{
 
     //endpoint 1
     Optional<SwiftCode> findBySwiftCode(String swiftCode); // I will find optional swift code, take bank

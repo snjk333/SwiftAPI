@@ -1,14 +1,12 @@
 package com.oleksandr.remitly.swiftapi.Mapper;
 
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.springframework.beans.factory.annotation.Autowired;
 import com.oleksandr.remitly.swiftapi.Model.DTO.SwiftCodeRequestDTO;
 import com.oleksandr.remitly.swiftapi.Model.Entity.SwiftCode;
 import com.oleksandr.remitly.swiftapi.Model.Entity.BankName;
 import com.oleksandr.remitly.swiftapi.Model.Entity.City;
 import com.oleksandr.remitly.swiftapi.Repository.BankNameRepository;
 import com.oleksandr.remitly.swiftapi.Repository.CityRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -17,6 +15,7 @@ public class SwiftCodeMapper {
     private final BankNameRepository bankNameRepository;
     private final CityRepository cityRepository;
 
+    @Autowired
     public SwiftCodeMapper(BankNameRepository bankNameRepository, CityRepository cityRepository) {
         this.bankNameRepository = bankNameRepository;
         this.cityRepository = cityRepository;

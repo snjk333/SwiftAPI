@@ -16,7 +16,6 @@ import org.springframework.stereotype.Component;
 
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Optional;
 
 @Component
 public class CSVDataLoader implements CommandLineRunner {
