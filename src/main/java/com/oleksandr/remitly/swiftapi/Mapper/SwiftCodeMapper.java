@@ -9,22 +9,18 @@ import com.oleksandr.remitly.swiftapi.Model.Entity.BankName;
 import com.oleksandr.remitly.swiftapi.Model.Entity.City;
 import com.oleksandr.remitly.swiftapi.Repository.BankNameRepository;
 import com.oleksandr.remitly.swiftapi.Repository.CityRepository;
+import org.springframework.stereotype.Component;
 
-@Mapper(componentModel = "spring")
-public abstract class SwiftCodeMapper {
+@Component
+public class SwiftCodeMapper {
 
     private final BankNameRepository bankNameRepository;
     private final CityRepository cityRepository;
 
-    @Autowired
     public SwiftCodeMapper(BankNameRepository bankNameRepository, CityRepository cityRepository) {
         this.bankNameRepository = bankNameRepository;
         this.cityRepository = cityRepository;
     }
-
-    @Mapping(target = "bank", expression = "java(getBank(dto.getBankName()))")
-    @Mapping(target = "city", expression = "java(getCity(dto.getCountryName()))")
-    public abstract SwiftCode toEntity(SwiftCodeRequestDTO dto);
 
     protected BankName getBank(String bankName) {
         return bankNameRepository.findByName(bankName)
@@ -35,4 +31,16 @@ public abstract class SwiftCodeMapper {
         return cityRepository.findByName(cityName)
                 .orElseThrow(() -> new RuntimeException("City not found: " + cityName));
     }
+
+    public SwiftCode toEntity(SwiftCodeRequestDTO dto){
+        return new SwiftCode(
+                dto.getSwiftCode(),
+                dto.isHeadquarter(),
+                dto.getAddress(),
+                getBank(getBank(dto.getBankName()).getName()),
+                null // we can't take city from request -> we have only country
+        );
+    }
+
+
 }

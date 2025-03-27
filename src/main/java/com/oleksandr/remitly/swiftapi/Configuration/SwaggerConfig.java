@@ -15,7 +15,7 @@ public class SwaggerConfig {
     public OpenAPI api() {
         return new OpenAPI()
                 .servers(List.of(new Server().url("http://localhost:8080")))
-                .info(new Info().title("Our cats API"));
+                .info(new Info().title("Our Swift API").version("1.0")
+                        .description("API documentation for Swift API service"));
     }
-
 }
