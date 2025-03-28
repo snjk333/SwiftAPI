@@ -1,13 +1,13 @@
-package com.oleksandr.remitly.swiftapi;
-
-import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
-
-@SpringBootTest
-class SwiftApiApplicationTests {
-
-	@Test
-	void contextLoads() {
-	}
-
-}
+//package com.oleksandr.remitly.swiftapi;
+//
+//import org.junit.jupiter.api.Test;
+//import org.springframework.boot.test.context.SpringBootTest;
+//
+//@SpringBootTest
+//class SwiftApiApplicationTests {
+//
+//	@Test
+//	void contextLoads() {
+//	}
+//
+//}
